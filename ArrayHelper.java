@@ -120,40 +120,42 @@ public class ArrayHelper {
 	 * the full array
 	 */
 
-	private static int[] merge(int[] arr, int low, int middle, int high) {
+	private static int[] merge(ArrayStats stats, int[] arr, int low, int middle, int high) {
+		middle -= low;
+		high -= low;
+		low -= low;
 		if(arr.length > 1){
+			int[] newArr = Arrays.copyOf(arr, middle+1);
+			int[] newArrTwo = Arrays.copyOfRange(arr, middle+1, arr.length);
+			
 			int highTwo = high;
-			high = middle;
 			int lowTwo = middle+1;
+			int middleTwo = (lowTwo+highTwo)/2;
+			high = middle;
 			middle = (low+high)/2;
-			int middleTwo = (lowTwo+high)/2;
-			int[] newArr = Arrays.copyOf(arr, high+1);
-			int[] newArrTwo = Arrays.copyOfRange(arr, lowTwo, highTwo+1);
 			
-			
-			System.out.println(Arrays.toString(newArr));
-			System.out.println(Arrays.toString(newArrTwo));
-			newArr = merge(newArr, low, middle, high);
-			newArrTwo = merge(newArrTwo, lowTwo, middleTwo, high);
+			newArr = merge(stats, newArr, low, middle, high);
+			if(newArrTwo.length > 1){
+				newArrTwo = merge(stats, newArrTwo, lowTwo, middleTwo, highTwo);
+			}
 
-			System.out.println(1);
-			System.out.println(Arrays.toString(newArr));
-			System.out.println(Arrays.toString(newArrTwo));
 			int[] a = newArr;
 			int[] b = newArrTwo;
 
-			int[] dummy = new int[(high-low)+1];
+			int[] dummy = new int[(highTwo-low)+1];
 			int k=0; //temp index
-			int i=0; //a index
-			int j=0; //b index
+			int i=0; //a(newArr) index
+			int j=0; //b(newArrTwo) index
 
 			while(k < dummy.length){
-				if(i == a.length){
-					System.arraycopy(b, j, dummy, k, b.length);
+				stats.incrementLoops();
+				stats.incrementIfs();
+				if(i >= a.length){
+					System.arraycopy(b, j, dummy, k, b.length-j);
 					k = dummy.length;
 				}
-				else if(j == a.length){
-					System.arraycopy(a, i, dummy, k, a.length);
+				else if( j >= b.length){
+					System.arraycopy(a, i, dummy, k, a.length-i);
 					k = dummy.length;
 				}
 				else{
@@ -188,10 +190,53 @@ public class ArrayHelper {
 		int low = 0;
 		int high = arr.length-1;
 		int middle = (low+high)/2;
+		ArrayStats stats = new ArrayStats();
 
-		System.out.println(Arrays.toString(arr));
-		merge(arr, low, middle, high);
-		return null;
+		stats.startTimer();
+		int[] a = merge(stats, arr, low, middle, high);
+		stats.endTimer();
+
+		return stats;
+	}
+
+	public static ArrayStats linearSearch(int[] arr, int target) {
+		ArrayStats stats = new ArrayStats();
+		stats.startTimer();
+		for(int i=0; i<arr.length; i++){
+			stats.incrementLoops();
+			stats.incrementIfs();
+			if(arr[i] == target) {
+				stats.endTimer();
+				return stats;
+			}
+		}
+		stats.endTimer();
+		return stats;
+	}
+
+	public static ArrayStats binarySearch(int[] arr, int target){
+		ArrayStats stats = new ArrayStats();
+
+		stats.startTimer();
+		int low = 0;
+		int high = arr.length-1;
+		int mid = (low+high)/2;
+
+		while(mid != target) {
+			stats.incrementLoops();
+			stats.incrementIfs();
+			if(mid > target){
+				high = mid;
+				mid = (low+high)/2;
+			}
+			else{
+				low = mid;
+				mid = (low+high)/2;
+			}
+		}
+
+		stats.endTimer();
+		return stats;
 	}
 
 	public static boolean isSorted(int[] arr){

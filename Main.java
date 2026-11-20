@@ -18,15 +18,111 @@ public class Main {
 		//processInsertionSort(writer);
 		//System.out.println("Insertion Sort Done...");
 
-		int[] a = {5,4,3,2,1};
-		ArrayStats stats = ArrayHelper.mergeSort(a);
+		processMergeSort(writer);
+		System.out.println("Merge Sort Done...");
+
+		processLinearSearch(writer);
+		System.out.println("Linear Search Done...");
+
+		processBinarySearch(writer);
+		System.out.println("Binary Search Done...");
+
 		writer.close();
 
-		System.out.println();
-		int b = ArrayHelper.factorial(290);
-		System.out.println(b);
-
 		System.out.println("PROGRAM DONE...");
+	}
+
+	public static void processBinarySearch(PrintWriter writer){
+		writer.println();
+		writer.println("Binary Search");
+		writer.println("n,time,ifs,loops,swaps");
+
+		int[] a = ArrayHelper.create(10,1,1000);
+		ArrayStats stats = ArrayHelper.binarySearch(a, ((int)(Math.random() * 10)+1));
+		writer.println("10,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+		
+		a = ArrayHelper.create(100,1,1000);
+		stats = ArrayHelper.binarySearch(a, ((int)(Math.random() * 100)+1));
+		writer.println("100,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(1000,1,1000);
+		stats = ArrayHelper.binarySearch(a, ((int)(Math.random() * 1000)+1));
+		writer.println("1000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(10000,1,1000);
+		stats = ArrayHelper.binarySearch(a, ((int)(Math.random() * 10000)+1));
+		writer.println("10000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+		//close the writer
+
+		a = ArrayHelper.create(100000,1,1000);
+		stats = ArrayHelper.binarySearch(a, ((int)(Math.random() * 100000)+1));
+		writer.println("100000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(1000000,1,1000);
+		stats = ArrayHelper.binarySearch(a, ((int)(Math.random() * 1000000)+1));
+		writer.println("1000000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+	}
+
+	public static void processLinearSearch(PrintWriter writer){
+		writer.println();
+		writer.println("Linear Search");
+		writer.println("n,time,ifs,loops,swaps");
+
+		int[] a = ArrayHelper.create(10,1,1000);
+		ArrayStats stats = ArrayHelper.linearSearch(a, ((int)(Math.random() * 10)+1));
+		writer.println("10,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+		
+		a = ArrayHelper.create(100,1,1000);
+		stats = ArrayHelper.linearSearch(a, ((int)(Math.random() * 100)+1));
+		writer.println("100,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(1000,1,1000);
+		stats = ArrayHelper.linearSearch(a, ((int)(Math.random() * 1000)+1));
+		writer.println("1000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(10000,1,1000);
+		stats = ArrayHelper.linearSearch(a, ((int)(Math.random() * 10000)+1));
+		writer.println("10000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+		//close the writer
+
+		a = ArrayHelper.create(100000,1,1000);
+		stats = ArrayHelper.linearSearch(a, ((int)(Math.random() * 100000)+1));
+		writer.println("100000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(1000000,1,1000);
+		stats = ArrayHelper.linearSearch(a, ((int)(Math.random() * 1000000)+1));
+		writer.println("1000000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+	}
+
+	public static void processMergeSort(PrintWriter writer){
+		writer.println();
+		writer.println("Merge Sort");
+		writer.println("n,time,ifs,loops,swaps");
+
+		int[] a = ArrayHelper.create(10,1,1000);
+		ArrayStats stats = ArrayHelper.mergeSort(a);
+		writer.println("10,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+		
+		a = ArrayHelper.create(100,1,1000);
+		stats = ArrayHelper.mergeSort(a);
+		writer.println("100,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(1000,1,1000);
+		stats = ArrayHelper.mergeSort(a);
+		writer.println("1000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(10000,1,1000);
+		stats = ArrayHelper.mergeSort(a);
+		writer.println("10000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+		//close the writer
+
+		a = ArrayHelper.create(100000,1,1000);
+		stats = ArrayHelper.mergeSort(a);
+		writer.println("100000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
+
+		a = ArrayHelper.create(1000000,1,1000);
+		stats = ArrayHelper.mergeSort(a);
+		writer.println("1000000,"+stats.duration()+","+stats.getIfCount()+","+stats.getLoopCount()+","+stats.getSwapCount());
 	}
 
 	public static void processInsertionSort(PrintWriter writer){
@@ -86,6 +182,7 @@ public class Main {
 
 		writer.println("1000000,na,na,na,na");
 	}
+
 	public static void processBubbleSortImproved(PrintWriter writer){
 		writer.println();
 		writer.println("Bubble Sort Improved");
